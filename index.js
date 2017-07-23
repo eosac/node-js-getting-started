@@ -17,8 +17,8 @@ var mm = null;
 for (var i = 0; i < senders.length; ++i) {
     let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // secure:true for port 465, secure:false for port 587
+        port: 587,
+        secure: false, // secure:true for port 465, secure:false for port 587
         auth: {
             user: senders[i],
             pass: passwords[i]
