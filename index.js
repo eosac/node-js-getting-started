@@ -28,6 +28,8 @@ for (var i = 0; i < senders.length; ++i) {
     transporters.push(transporter);
 }
 
+
+var timeOut = 0;
 var listofemails = JSON.parse(mmmailsJSON);
 console.log(listofemails.length);
 
@@ -69,6 +71,8 @@ massMailer.prototype.SendEmail = function (Email, callback) {
     // in that we will update DB
     // Once done that instance is done.
     // Once every instance is done final callback will be called.
+	
+	
     async.waterfall([
         function (callback) {
 
@@ -84,7 +88,7 @@ massMailer.prototype.SendEmail = function (Email, callback) {
             };
 
             setTimeout(function () {
-                transporter.sendMail(mailOptions, function (error, info) {
+               transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
                         console.log(error)
                         failure_email.push(Email);
@@ -95,16 +99,21 @@ massMailer.prototype.SendEmail = function (Email, callback) {
 
                     status = "failure " + failure_email.length + " success " + success_email.length;
                     callback(null, self.status, Email);
-                });
-            }, 200 * 60);
+              }); 
+				//console.log(Email);
+				               //     callback(null, self.status, Email);
 
-        },
-        function (statusCode, Email, callback) {
+            }, timeOut);
 
-            callback();
-        }
+			timeOut += 200 * 60;
+        }//,//
+        //function (statusCode, Email, callback) {
+
+          //  callback();
+        //}
     ], function () {
 
+		console.log("Done");
         if (failure_email.length + success_email.length == listofemails.length) {
             fs.writeFileSync("failedMails.json", JSON.stringify(failure_email));
             fs.writeFileSync("successMails.json", JSON.stringify(success_email));
