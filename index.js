@@ -96,7 +96,7 @@ massMailer.prototype.SendEmail = function (Email, callback) {
                     status = "failure " + failure_email.length + " success " + success_email.length;
                     callback(null, self.status, Email);
                 });
-            }, 2000 * 1);
+            }, 1000 * 60);
 
         },
         function (statusCode, Email, callback) {
