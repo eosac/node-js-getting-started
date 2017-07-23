@@ -5,7 +5,7 @@ var fs = require("fs");
 var htmlDoc = String(fs.readFileSync('document.html'));;
 var Subj = 'EOS Insider Witness beta test'
 let mmmailsJSON = String(fs.readFileSync('mmmails0.json')); //REPLACE with mails
-var senders = ['eostokens@gmail.com'];
+var senders = ['eos.inside@gmail.com'];
 var passwords = ['scamioio12390'];
 
 var currentTransporter = 0;
@@ -96,7 +96,7 @@ massMailer.prototype.SendEmail = function (Email, callback) {
                     status = "failure " + failure_email.length + " success " + success_email.length;
                     callback(null, self.status, Email);
                 });
-            }, 1000 * 60);
+            }, 200 * 60);
 
         },
         function (statusCode, Email, callback) {
